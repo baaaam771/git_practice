@@ -13,3 +13,4 @@ t.right(90)
 print("hola")
 error
 error2
+error3

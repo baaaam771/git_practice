@@ -1,64 +1,34 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include <stdio.h>
+#include <string.h>
 
-using namespace std;
-string keyboard[4] = { "***ABCDE", "FGHIJKLM", "NOPQRSTU", "VWXYZ***" };
-string destination[50];
+struct student {
+    char sno[20];
+    char name[20];
+    int year;
+    char dept[30];
+    int age;
+    struct student *next;
+};
 
-int main(void)
+int main() {
+    int i = 0;
+    struct student data[100];
+    FILE *fp;
 
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int N;
-    cin >> N;
+    fp = fopen("studentdata-5.txt", "r");
+   
 
-    for (int i = 0; i < N;i++)
-        cin>> destination[i];
-
-    string input;
-
-    cin >> input;
-
-    vector<char> possible;
-
-    for (int i = 0; i < N;i++)
-    {
-        bool same = true;
-        for(int j=0; j<input.size();j++)
-            if (destination[i][j] != input[j])
-            {
-                same = false;
-                break;
-
-            }
-
-        if(same)
-            possible.push_back(destination[i][input.size()]);
-
+    
+    while (fscanf(fp, "%s %s %d %s %d", data[i].sno, data[i].name, &data[i].year, data[i].dept, &data[i].age) != EOF) {
+        i++;
+        if (i >= 100) break;
     }
 
-    for (int i = 0; i < 4;i++)
-    {
-        for (int j = 0; j <keyboard[i].size(); j++)
-        {
-            bool find = false;
-            for (int k = 0; k <possible.size(); k++)
-            {
-                if (possible[k] == keyboard[i][j])
-                {
-                    find = true;
-                    cout<< keyboard[i][j];
-                    break;
-                }
+    fclose(fp);
 
-            }
-            if(!find)
-                cout<< '*';
-
-        }
-        cout<< "\n";
+    for (int j = 0; j < i; j++) {
+        printf("%s, %s, %d, %s, %d\n", data[j].sno, data[j].name, data[j].year, data[j].dept, data[j].age);
     }
+
     return 0;
 }
